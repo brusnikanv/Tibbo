@@ -5,7 +5,12 @@ try:
 except (TypeError, ValueError, IOError):
     config = {}
 
+try:
+	EXT_SERVER_DEBUG = bool(config.get("debug", True))
+except (TypeError, ValueError):
+	EXT_SERVER_DEBUG = True
 EXT_SERVER_LOGIN = config.get("login", "admin")
+EXT_SERVER_TERMINAL = config.get("terminal", "WEB")
 EXT_SERVER_PASSWORD = config.get("password", "password")
 EXT_SERVER_ORGANIZATION = config.get("organization", "1")
 EXT_SERVER_URL = config.get("url", "http://127.0.0.1:8081")

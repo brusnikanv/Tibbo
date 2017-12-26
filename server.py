@@ -5,8 +5,9 @@ import requests
 import websocket
 import settings
 
-logger = logging.getLogger(__name__)
-
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
+logger.addHandler(logging.StreamHandler())
 
 def process_message(ws, message):
     """
@@ -38,12 +39,23 @@ def process_message(ws, message):
     args = {
         "login": settings.EXT_SERVER_LOGIN,
         "password": settings.EXT_SERVER_PASSWORD,
-        "terminal": 'WEB', # Where should we get this?
+        "terminal": settings.EXT_SERVER_TERMINAL, # Where should we get this?
         "organisationId": settings.EXT_SERVER_ORGANIZATION,
         "value": face.get('user_data') # Where should we get this?
     }
     # And now send it
     response = requests.post(settings.EXT_SERVER_URL, json=args)
+    
+    if settings.DEBUG:
+		logger.info('='*80)
+		logger.info('Sent request')
+		logger.info(response.request.body)
+		logger.info('-'*80)
+		logger.info('Reveived response')
+		logger.info('-'*80)
+		logger.info(response.content)
+		logger.info('='*80)
+    
     if not response.ok:
         logger.error("Error {} while sending request to external server. Enable debug logging to see full response".format(response.status_code))
         logger.debug(response.content)
