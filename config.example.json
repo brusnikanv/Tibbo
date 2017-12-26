@@ -1,0 +1,9 @@
+{
+  "login": "admin",
+  "password": "password",
+  "organization": "1",
+  "url": "http://127.0.0.1:8081",
+  "websocket": "ws://stat.faceis.ru/api/subscribe",
+  "token": "Luna uuid token",
+  "threshold": 0.85
+}
