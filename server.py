@@ -45,17 +45,17 @@ def process_message(ws, message):
     }
     # And now send it
     response = requests.post(settings.EXT_SERVER_URL, json=args)
-    
-    if settings.DEBUG:
-		logger.info('='*80)
-		logger.info('Sent request')
-		logger.info(response.request.body)
-		logger.info('-'*80)
-		logger.info('Reveived response')
-		logger.info('-'*80)
-		logger.info(response.content)
-		logger.info('='*80)
-    
+
+    if settings.EXT_SERVER_DEBUG:
+        logger.info('='*80)
+        logger.info('Sent request')
+        logger.info(response.request.body)
+        logger.info('-'*80)
+        logger.info('Reveived response')
+        logger.info('-'*80)
+        logger.info(response.content)
+        logger.info('='*80)
+
     if not response.ok:
         logger.error("Error {} while sending request to external server. Enable debug logging to see full response".format(response.status_code))
         logger.debug(response.content)
