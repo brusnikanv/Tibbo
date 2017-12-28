@@ -47,7 +47,8 @@ def process_message(ws, message):
     face = data["result"]["candidates"][0]
 
     # If similarity threshold was set - check if we need to skip this match
-    if settings.LUNA_SCORE_THRESHOLD and settings.LUNA_SCORE_THRESHOLD < face.get('similarity', 0):
+    if settings.LUNA_SCORE_THRESHOLD and settings.LUNA_SCORE_THRESHOLD > face.get('similarity', 0):
+        logger.info("Similarity {} does not pass threshold {}".format(face.get('similarity', 0), settings.LUNA_SCORE_THRESHOLD))
         return
 
     # Prepare external service message
