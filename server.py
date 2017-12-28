@@ -61,7 +61,7 @@ def process_message(ws, message):
     }
     # And now send it
     try:
-        response = requests.post(settings.EXT_SERVER_URL, json=args)
+        response = requests.post(settings.EXT_SERVER_URL, data=json.dumps(args))
     except HTTPError as ex:
         print("Error sending request")
         logger.error("Error sending request")
