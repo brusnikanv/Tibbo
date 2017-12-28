@@ -1,13 +1,23 @@
 import json
 import logging
+import ssl
 
 import requests
+import sys
 import websocket
+from requests import HTTPError
+
 import settings
 
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
-logger.addHandler(logging.StreamHandler())
+
+ch = logging.StreamHandler(sys.stdout)
+ch.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+ch.setFormatter(formatter)
+logger.addHandler(ch)
+
 
 def process_message(ws, message):
     """
@@ -49,7 +59,18 @@ def process_message(ws, message):
         "value": face.get('user_data') # Where should we get this?
     }
     # And now send it
-    response = requests.post(settings.EXT_SERVER_URL, json=args)
+    try:
+        response = requests.post(settings.EXT_SERVER_URL, json=args)
+    except HTTPError as ex:
+        print("Error sending request")
+        logger.error("Error sending request")
+        logger.exception(ex)
+        return
+    except Exception as ex:
+        print("Unexpected exception")
+        logger.error("Unexpected exception")
+        logger.exception(ex)
+        return
 
     if settings.EXT_SERVER_DEBUG:
         logger.info('='*80)
@@ -80,11 +101,11 @@ def process_close(ws):
 if __name__ == "__main__":
 
     # When started as script - connect to server and serve until connection will be dropped
-
+    print("{}?auth_token={}&event_type=match".format(settings.SUBSCRIPTION_URL, settings.LUNA_TOKEN))
     ws = websocket.WebSocketApp("{}?auth_token={}&event_type=match".format(settings.SUBSCRIPTION_URL, settings.LUNA_TOKEN),
                                 on_message=process_message,
                                 on_error=process_error,
                                 on_close=process_close)
 
     # Serving with ping to prevent connection close
-    ws.run_forever(ping_interval=10)
+    ws.run_forever(ping_interval=10, sslopt={"cert_reqs": ssl.CERT_NONE})
