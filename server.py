@@ -19,12 +19,17 @@ def process_message(ws, message):
     # We are waiting for valid json from LUNA
     try:
         data = json.loads(message)
-    except (TypeError, ValueError):
+    except (TypeError, ValueError) as ex:
         # So if it's not  - exit
+        logger.error('Fail to parse JSON body')
+        logger.exception(ex)
         return
 
     # Also we need to check if response contain candidates results
     if not "result" in data or not "candidates" in data["result"]:
+        # So if it's not  - exit
+        logger.error('Response have no candidates')
+        logger.info(data)
         # So if it's not  - exit
         return
 
