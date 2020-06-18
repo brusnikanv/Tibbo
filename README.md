@@ -4,19 +4,19 @@ LUNA stats to external stat server relay
 Requirements
 ------------
 
-* python3.4+
+* python3.6
 * virtualenv
 
 Installation
 ------------
 
-`python3 -m venv myvenv`
+`python3.6 -m venv venv`
 
 `source myvenv/bin/activate`
 
 `pip install -r requirements.txt`
 
-`python server.py`
+`python3.6 server.py`
 
 Configuration
 -------------

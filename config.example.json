@@ -1,11 +1,26 @@
 {
-  "debug": true,
-  "login": "admin",
-  "password": "password",
-  "terminal": "WEB",
-  "organization": "1",
-  "url": "http://127.0.0.1:8081",
-  "websocket": "ws://stat.faceis.ru/api/subscribe",
-  "token": "Luna uuid token",
-  "threshold": 0.85
+ "websocket": "ws://172.20.23.226:5008/api/subscribe",
+ "luna_login": "demo@demo.demo",
+ "luna_password": "DEMO_TEST",
+ "sources": [
+   {
+  "number": 0,
+  "name": "door0",
+  "url": "http://10.0.7.210:5000/open",
+  "token": "06d5709a-ae1a-4fee-bbf5-01a5ba8e7859",
+  "threshold": 0.7,
+  "open_delay": 3,
+  "signal_type": 1
+ },
+ {
+  "number": 1,
+  "name": "door1",
+  "url": "http://10.0.7.210:5000/open",
+  "token": "af31999a-8684-4453-8e10-0e5a316b912e",
+  "threshold": 0.7,
+  "open_delay": 3,
+  "signal_type": 1
+ }
+]
 }
+
