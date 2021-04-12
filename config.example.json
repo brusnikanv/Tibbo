@@ -1,26 +1,25 @@
 {
- "websocket": "ws://172.20.23.226:5008/api/subscribe",
+ "websocket": "ws://192.168.80.167:5008/api/subscribe",
  "luna_login": "demo@demo.demo",
  "luna_password": "DEMO_TEST",
  "sources": [
    {
   "number": 0,
   "name": "door0",
-  "url": "http://10.0.7.210:5000/open",
-  "token": "06d5709a-ae1a-4fee-bbf5-01a5ba8e7859",
+  "url": "http://192.168.80.223/api.html",
+  "token": "73a6417a-ba0a-4b53-aee6-360ef2f9e245",
   "threshold": 0.7,
-  "open_delay": 3,
-  "signal_type": 1
+  "open_delay": 4,
+  "signal_type": 0
  },
  {
   "number": 1,
   "name": "door1",
-  "url": "http://10.0.7.210:5000/open",
-  "token": "af31999a-8684-4453-8e10-0e5a316b912e",
+  "url": "http://192.168.80.223/api.html",
+  "token": "",
   "threshold": 0.7,
   "open_delay": 3,
   "signal_type": 1
  }
 ]
 }
-
